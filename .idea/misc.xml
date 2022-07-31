@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/alira/AndroidStudioProjects/FinalProject/app/src/main/res/layout/activity_gallery.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/alira/AndroidStudioProjects/FinalProject/app/src/main/res/layout/activity_help.xml" value="0.365625" />
+        <entry key="..\:/Users/alira/AndroidStudioProjects/FinalProject/app/src/main/res/layout/activity_main.xml" value="0.3146067415730337" />
+        <entry key="..\:/Users/alira/AndroidStudioProjects/FinalProject/app/src/main/res/layout/activity_main_drawer.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/alira/AndroidStudioProjects/FinalProject/app/src/main/res/layout/nasa_photo.xml" value="0.33" />
+        <entry key="..\:/Users/alira/AndroidStudioProjects/FinalProject/app/src/main/res/menu/menu_icons.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/alira/AndroidStudioProjects/FinalProject/app/src/main/res/menu/menu_items.xml" value="0.3147982062780269" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>

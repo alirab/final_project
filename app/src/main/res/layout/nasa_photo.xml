@@ -34,7 +34,7 @@
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="397dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -42,70 +42,74 @@
             tools:srcCompat="@tools:sample/avatars" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/button1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
             android:text="Save"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView"
-            app:layout_constraintVertical_bias="0.532" />
+            app:layout_constraintTop_toBottomOf="@+id/button2" />
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/button2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Random"
+            android:layout_marginTop="1dp"
+            android:layout_marginBottom="100dp"
+            android:text="Re-roll"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView"
-            app:layout_constraintVertical_bias="0.245" />
+            app:layout_constraintTop_toBottomOf="@+id/URL"
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
-            android:id="@+id/textView"
-            android:layout_width="263dp"
-            android:layout_height="15dp"
-            android:text="Title:"
-            app:layout_constraintBottom_toTopOf="@+id/imageView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
-
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="263dp"
-            android:layout_height="15dp"
+            android:id="@+id/date"
+            android:layout_width="262dp"
+            android:layout_height="18dp"
             android:text="Date:"
             app:layout_constraintBottom_toTopOf="@+id/imageView"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.107"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
-            app:layout_constraintVertical_bias="0.6" />
+            app:layout_constraintVertical_bias="0.655" />
 
         <TextView
-            android:id="@+id/textView5"
-            android:layout_width="263dp"
-            android:layout_height="15dp"
-            android:text="URL:"
+            android:id="@+id/title"
+            android:layout_width="223dp"
+            android:layout_height="17dp"
+            android:text="Title:"
             app:layout_constraintBottom_toTopOf="@+id/imageView"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.085"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
-            app:layout_constraintVertical_bias="0.703" />
+            app:layout_constraintVertical_bias="0.329" />
+
+        <TextView
+            android:id="@+id/URL"
+            android:layout_width="match_parent"
+            android:layout_height="18dp"
+            android:text="URL:"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!--
+
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navigationMenu"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         app:menu="@menu/menu_items" />
--->
+
 
 </androidx.drawerlayout.widget.DrawerLayout>

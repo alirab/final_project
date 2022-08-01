@@ -10,10 +10,6 @@
             android:title="Home"
             app:showAsAction="never" />
         <item
-            android:id="@+id/random"
-            android:title="Random"
-            app:showAsAction="never" />
-        <item
             android:id="@+id/photos"
             android:title="Photos"
             app:showAsAction="never" />

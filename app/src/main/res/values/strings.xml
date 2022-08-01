@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">FinalProject</string>
+    <string name="open_string">open</string>
+    <string name="close_string">closed</string>
 </resources>

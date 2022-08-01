@@ -4,14 +4,19 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -20,11 +25,15 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.appcompat.widget.Toolbar;
 import com.google.android.material.navigation.NavigationView;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -56,7 +65,13 @@ public class NasaPhotoActivity extends AppCompatActivity {
 
         drawerLayout = findViewById(R.id.drawerLayout);
         navigationView = findViewById(R.id.navigationMenu);
+
         save = findViewById(R.id.button1); //save
+
+        //request permission to Read and Write
+        ActivityCompat.requestPermissions(NasaPhotoActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
+        ActivityCompat.requestPermissions(NasaPhotoActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},2);
+
         reroll = findViewById(R.id.button2); //re-roll
 
         //tool bar support
@@ -80,6 +95,12 @@ public class NasaPhotoActivity extends AppCompatActivity {
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_string, R.string.close_string);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
+
+        //Save  image function ->
+        save.setOnClickListener(view -> {
+            saveToGallery();
+            Toast.makeText(this, "The image has been saved to the device.", Toast.LENGTH_SHORT).show();
+        });
 
         //Re-roll function is working -> new thread created on the async task to handle multiple thread executions
         reroll.setOnClickListener(view -> {
@@ -122,6 +143,36 @@ public class NasaPhotoActivity extends AppCompatActivity {
             return true;
         });
 
+    }
+
+    //Save to gallery function using bitmap and file output stream
+    private void saveToGallery(){
+        BitmapDrawable bitmapDrawable = (BitmapDrawable) imageView.getDrawable();
+        Bitmap bitmap = bitmapDrawable.getBitmap();
+
+        FileOutputStream outputStream = null;
+        File file = Environment.getExternalStorageDirectory();
+        File dir = new File(file.getAbsolutePath()+"/NASAImages");
+        dir.mkdirs();
+
+        @SuppressLint("DefaultLocale")
+        String filename = String.format("%d.png",System.currentTimeMillis());
+        File outFile = new File(dir,filename);
+        try{
+            outputStream = new FileOutputStream(outFile);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        bitmap.compress(Bitmap.CompressFormat.PNG,100,outputStream);
+        try{
+            outputStream.flush();
+        }catch(Exception e){
+            e.printStackTrace();
+        }try {
+            outputStream.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     class NASAImage extends AsyncTask<String, Integer, Bitmap> {

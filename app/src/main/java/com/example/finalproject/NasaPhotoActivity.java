@@ -13,12 +13,15 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.view.Menu;
@@ -33,6 +36,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.BufferedReader;
@@ -85,7 +90,11 @@ public class NasaPhotoActivity extends AppCompatActivity {
         //declaring text views
         title = findViewById(R.id.title);
         date = findViewById(R.id.date);
+
+        //make url clickable
         descURL = findViewById(R.id.URL);
+        //descURL.setMovementMethod(LinkMovementMethod.getInstance());
+
         imageView = findViewById(R.id.imageView);
 
         //declaring async class
@@ -103,7 +112,16 @@ public class NasaPhotoActivity extends AppCompatActivity {
         //Save  image function ->
         save.setOnClickListener(view -> {
             saveToGallery();
-            Toast.makeText(this, "The image has been saved to the device.", Toast.LENGTH_SHORT).show();
+            Snackbar snackbar = Snackbar.make(view,"Image downloaded successfully.",Snackbar.LENGTH_LONG);
+            snackbar.setDuration(20000);
+            snackbar.setAction("OKAY", new View.OnClickListener(){
+
+                @Override
+                public void onClick(View view) {
+
+                }
+            });
+            snackbar.show();
         });
 
         //Re-roll function is working -> new thread created on the async task to handle multiple thread executions
@@ -182,7 +200,7 @@ public class NasaPhotoActivity extends AppCompatActivity {
 
                 String imageURL = jsonObject.getString("hdurl");
                 URL nasaURL = new URL(imageURL);
-                descURL.setText("URL: " + imageURL);
+                descURL.setText(imageURL);
 
                 String imageDate = jsonObject.getString("date");
                 date.setText("Date: " + imageDate);

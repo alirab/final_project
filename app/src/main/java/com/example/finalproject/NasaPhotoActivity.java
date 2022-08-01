@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import androidx.appcompat.widget.Toolbar;
 import com.google.android.material.navigation.NavigationView;
@@ -44,6 +45,7 @@ public class NasaPhotoActivity extends AppCompatActivity {
     TextView title;
     TextView date;
     TextView descURL;
+    ProgressBar progressBar;
 
 
     @SuppressLint({"NonConstantResourceId", "SetTextI18n"})
@@ -70,6 +72,8 @@ public class NasaPhotoActivity extends AppCompatActivity {
         //declaring async class
         NASAImage nasaImage = new NASAImage();
         nasaImage.execute();
+
+        progressBar = findViewById(R.id.progressBar);
 
 
         //drawer layout actions
@@ -129,6 +133,9 @@ public class NasaPhotoActivity extends AppCompatActivity {
         protected void onProgressUpdate(Integer... values) {
             super.onProgressUpdate(values);
 
+            progressBar.setProgress(values[0]);
+            progressBar.setVisibility(View.VISIBLE);
+
         }
 
         @Override
@@ -167,6 +174,15 @@ public class NasaPhotoActivity extends AppCompatActivity {
             } catch (IOException | JSONException ioe) {
                 ioe.printStackTrace();
             }
+            for (int i = 0; i < 15; i++) {
+                try {
+                    publishProgress(i);
+                    Thread.sleep(1);
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+            }
+            publishProgress(0);
             return bitmap;
 
         }

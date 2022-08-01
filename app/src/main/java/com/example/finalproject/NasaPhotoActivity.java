@@ -14,9 +14,13 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.text.SpannableString;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -145,35 +149,7 @@ public class NasaPhotoActivity extends AppCompatActivity {
 
     }
 
-    //Save to gallery function using bitmap and file output stream
-    private void saveToGallery(){
-        BitmapDrawable bitmapDrawable = (BitmapDrawable) imageView.getDrawable();
-        Bitmap bitmap = bitmapDrawable.getBitmap();
 
-        FileOutputStream outputStream = null;
-        File file = Environment.getExternalStorageDirectory();
-        File dir = new File(file.getAbsolutePath()+"/NASAImages");
-        dir.mkdirs();
-
-        @SuppressLint("DefaultLocale")
-        String filename = String.format("%d.png",System.currentTimeMillis());
-        File outFile = new File(dir,filename);
-        try{
-            outputStream = new FileOutputStream(outFile);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        bitmap.compress(Bitmap.CompressFormat.PNG,100,outputStream);
-        try{
-            outputStream.flush();
-        }catch(Exception e){
-            e.printStackTrace();
-        }try {
-            outputStream.close();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
 
     class NASAImage extends AsyncTask<String, Integer, Bitmap> {
 
@@ -248,6 +224,36 @@ public class NasaPhotoActivity extends AppCompatActivity {
             }
                 new NASAImage();
 
+        }
+    }
+
+    //Save to gallery function using bitmap and file output stream
+    private void saveToGallery(){
+        BitmapDrawable bitmapDrawable = (BitmapDrawable) imageView.getDrawable();
+        Bitmap bitmap = bitmapDrawable.getBitmap();
+
+        FileOutputStream outputStream = null;
+        File file = Environment.getExternalStorageDirectory();
+        File dir = new File(file.getAbsolutePath()+"/NASAImages");
+        dir.mkdirs();
+
+        @SuppressLint("DefaultLocale")
+        String filename = String.format("%d.png",System.currentTimeMillis());
+        File outFile = new File(dir,filename);
+        try{
+            outputStream = new FileOutputStream(outFile);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        bitmap.compress(Bitmap.CompressFormat.PNG,100,outputStream);
+        try{
+            outputStream.flush();
+        }catch(Exception e){
+            e.printStackTrace();
+        }try {
+            outputStream.close();
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 

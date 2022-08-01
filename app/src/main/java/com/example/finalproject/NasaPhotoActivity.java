@@ -2,6 +2,7 @@ package com.example.finalproject;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -36,8 +37,8 @@ public class NasaPhotoActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar;
-    Button button1;
-    Button button2;
+    Button save;
+    Button reroll;
     ImageView imageView;
     Bitmap bitmap;
     TextView title;
@@ -53,15 +54,16 @@ public class NasaPhotoActivity extends AppCompatActivity {
 
         drawerLayout = findViewById(R.id.drawerLayout);
         navigationView = findViewById(R.id.navigationMenu);
-        button1 =  findViewById(R.id.button1); //save
-        button2 = findViewById(R.id.button2); //re-roll
+        save = findViewById(R.id.button1); //save
+        reroll = findViewById(R.id.button2); //re-roll
 
+        //tool bar support
         toolbar = findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
 
+        //declaring text views
         title = findViewById(R.id.title);
         date = findViewById(R.id.date);
-        date.setText("Date: "+generateRandomDate());
         descURL = findViewById(R.id.URL);
         imageView = findViewById(R.id.imageView);
 
@@ -75,17 +77,32 @@ public class NasaPhotoActivity extends AppCompatActivity {
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-        button2.setOnClickListener(view -> {
-                date.setText("Date: " + generateRandomDate());
+        //Re-roll function is working -> new thread created on the async task to handle multiple thread executions
+        reroll.setOnClickListener(view -> {
+
+            AlertDialog.Builder alert = new AlertDialog.Builder(reroll.getContext());
+            alert.setTitle("Are you sure you want to re-roll this image?")
+                    .setMessage("New random NASA image?")
+                    .setPositiveButton("Yes", (dialog, which) -> {
+
+                        NASAImage newNasaImage = new NASAImage();
+                        newNasaImage.execute();
+
+
+                    }).setNegativeButton("No", (dialog, which) -> {
+                        dialog.cancel();
+                    });
+            alert.show();
+
         });
 
 
         //nav view item select listener, utilizing switch case to initialize activities using intent filter
         navigationView.setNavigationItemSelectedListener(item -> {
             drawerLayout.closeDrawer(GravityCompat.START);
-            switch(item.getItemId()){
+            switch (item.getItemId()) {
                 case R.id.home:
-                    Intent c =  new Intent (NasaPhotoActivity.this, MainActivity.class);
+                    Intent c = new Intent(NasaPhotoActivity.this, MainActivity.class);
                     startActivity(c);
                     break;
                 case R.id.photos:
@@ -103,21 +120,25 @@ public class NasaPhotoActivity extends AppCompatActivity {
 
     }
 
-    class NASAImage extends AsyncTask<String, Void, Bitmap> {
+    class NASAImage extends AsyncTask<String, Integer, Bitmap> {
 
-        protected void onPreExecute(){
+        protected void onPreExecute() {
             super.onPreExecute();
         }
 
-        protected void onProgressUpdate(Void...voids){}
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
+
+        }
 
         @Override
         protected Bitmap doInBackground(String... objects) {
-            try{
-                String url = "https://api.nasa.gov/planetary/apod?api_key=cwZOfj9H4q0nNRzepGBmHAhICE2L7XRPOeNxHlrK&date="+generateRandomDate();
-                        HttpURLConnection httpURLConnection = (HttpURLConnection) new URL(url).openConnection();
-                        httpURLConnection.setDoInput(true);
-                        httpURLConnection.connect();
+
+            try {
+                String url = "https://api.nasa.gov/planetary/apod?api_key=cwZOfj9H4q0nNRzepGBmHAhICE2L7XRPOeNxHlrK&date=" + generateRandomDate();
+                HttpURLConnection httpURLConnection = (HttpURLConnection) new URL(url).openConnection();
+                httpURLConnection.setDoInput(true);
+                httpURLConnection.connect();
 
                 InputStream inputStream = httpURLConnection.getInputStream();
 
@@ -127,13 +148,13 @@ public class NasaPhotoActivity extends AppCompatActivity {
 
                 String imageURL = jsonObject.getString("hdurl");
                 URL nasaURL = new URL(imageURL);
-                descURL.setText("URL: "+imageURL);
+                descURL.setText("URL: " + imageURL);
 
                 String imageDate = jsonObject.getString("date");
-                date.setText("Date: "+imageDate);
+                date.setText("Date: " + imageDate);
 
                 String imageTitle = jsonObject.getString("title");
-                title.setText("Title: "+imageTitle);
+                title.setText("Title: " + imageTitle);
 
                 HttpURLConnection httpURLConnection1 = (HttpURLConnection) nasaURL.openConnection();
                 httpURLConnection1.setDoInput(true);
@@ -143,38 +164,38 @@ public class NasaPhotoActivity extends AppCompatActivity {
                 bitmap = BitmapFactory.decodeStream(inputStream1);
 
 
-
-            }catch (IOException | JSONException ioe){
+            } catch (IOException | JSONException ioe) {
                 ioe.printStackTrace();
             }
             return bitmap;
 
         }
+
         @Override
         protected void onPostExecute(Bitmap bitmap) {
             super.onPostExecute(bitmap);
 
-            if (imageView != null){
+            if(imageView != null) {
                 imageView.setImageBitmap(bitmap);
                 imageView.setVisibility(View.VISIBLE);
             }
-            new NASAImage().execute();
-        }
+                new NASAImage();
 
+        }
     }
 
-    //generating a random date --> using method to generate image
-    private String generateRandomDate(){
+    //generating a random date --> using method to generate image in Async
+    private String generateRandomDate() {
 
         Calendar calendar = Calendar.getInstance();
-        int year = randomBetween(1995,calendar.get(Calendar.YEAR));
+        int year = randomBetween(1995, calendar.get(Calendar.YEAR));
         calendar.set(Calendar.YEAR, year);
         int day = randomBetween(1, calendar.get(Calendar.DAY_OF_YEAR));
         calendar.set(Calendar.DAY_OF_YEAR, day);
-        return calendar.get(Calendar.YEAR)+"-"+(calendar.get(Calendar.MONTH)+1)+"-"+calendar.get(Calendar.DAY_OF_MONTH);
+        return calendar.get(Calendar.YEAR) + "-" + (calendar.get(Calendar.MONTH) + 1) + "-" + calendar.get(Calendar.DAY_OF_MONTH);
     }
 
-    private static int randomBetween(int start, int end){
+    private static int randomBetween(int start, int end) {
         return start + (int) Math.round(Math.random() * (end - start));
     }
 
@@ -186,13 +207,14 @@ public class NasaPhotoActivity extends AppCompatActivity {
         inflater.inflate(R.menu.menu_icons, menu);
         return true;
     }
+
     //switch case generating toast if item(n) is selected
     @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.item1:
-                Intent c =  new Intent (NasaPhotoActivity.this, MainActivity.class);
+                Intent c = new Intent(NasaPhotoActivity.this, MainActivity.class);
                 startActivity(c);
                 return true;
             case R.id.item2:

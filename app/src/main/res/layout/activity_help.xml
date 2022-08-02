@@ -34,23 +34,25 @@
         <TextView
             android:id="@+id/textView2"
             android:layout_width="match_parent"
-            android:layout_height="677dp"
+            android:layout_height="wrap_content"
             android:text="1.\n2.\n3.\n4.\n5."
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
+            app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+            app:layout_constraintVertical_bias="0.0" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!--
+
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navigationMenu"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         app:menu="@menu/menu_items" />
--->
+
 
 </androidx.drawerlayout.widget.DrawerLayout>

@@ -7,23 +7,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.TextPaint;
-import android.text.method.LinkMovementMethod;
-import android.text.style.ClickableSpan;
+import android.provider.Browser;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -32,12 +29,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.appcompat.widget.Toolbar;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.BufferedReader;
@@ -49,7 +43,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Calendar;
-
 
 public class NasaPhotoActivity extends AppCompatActivity {
 
@@ -65,7 +58,6 @@ public class NasaPhotoActivity extends AppCompatActivity {
     TextView descURL;
     ProgressBar progressBar;
 
-
     @SuppressLint({"NonConstantResourceId", "SetTextI18n"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +69,7 @@ public class NasaPhotoActivity extends AppCompatActivity {
 
         save = findViewById(R.id.button1); //save
 
-        //request permission to Read and Write
+        //request permission to read and write
         ActivityCompat.requestPermissions(NasaPhotoActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
         ActivityCompat.requestPermissions(NasaPhotoActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},2);
 
@@ -93,7 +85,6 @@ public class NasaPhotoActivity extends AppCompatActivity {
 
         //make url clickable
         descURL = findViewById(R.id.URL);
-        //descURL.setMovementMethod(LinkMovementMethod.getInstance());
 
         imageView = findViewById(R.id.imageView);
 
@@ -102,7 +93,6 @@ public class NasaPhotoActivity extends AppCompatActivity {
         nasaImage.execute();
 
         progressBar = findViewById(R.id.progressBar);
-
 
         //drawer layout actions
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_string, R.string.close_string);
@@ -135,14 +125,12 @@ public class NasaPhotoActivity extends AppCompatActivity {
                         NASAImage newNasaImage = new NASAImage();
                         newNasaImage.execute();
 
-
                     }).setNegativeButton("No", (dialog, which) -> {
                         dialog.cancel();
                     });
             alert.show();
 
         });
-
 
         //nav view item select listener, utilizing switch case to initialize activities using intent filter
         navigationView.setNavigationItemSelectedListener(item -> {
@@ -160,14 +148,11 @@ public class NasaPhotoActivity extends AppCompatActivity {
                     Intent a = new Intent(NasaPhotoActivity.this, HelpActivity.class);
                     startActivity(a);
                     break;
-
             }
             return true;
         });
 
     }
-
-
 
     class NASAImage extends AsyncTask<String, Integer, Bitmap> {
 
@@ -202,6 +187,24 @@ public class NasaPhotoActivity extends AppCompatActivity {
                 URL nasaURL = new URL(imageURL);
                 descURL.setText(imageURL);
 
+                //URL onclick listener
+                descURL.setOnClickListener(view -> {
+
+                    Context context = descURL.getContext();
+                    Intent intent = new Intent(Intent.ACTION_VIEW,Uri.parse(imageURL));
+
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.setPackage("com.android.chrome");
+                    intent.putExtra(Browser.EXTRA_APPLICATION_ID,context.getPackageName());
+                    try{
+                        startActivity(intent);
+                    }catch(ActivityNotFoundException ex){
+
+                        intent.setPackage(null);
+                        startActivity(Intent.createChooser(intent, "Select Browser"));
+                    }
+                });
+
                 String imageDate = jsonObject.getString("date");
                 date.setText("Date: " + imageDate);
 
@@ -214,7 +217,6 @@ public class NasaPhotoActivity extends AppCompatActivity {
 
                 InputStream inputStream1 = httpURLConnection1.getInputStream();
                 bitmap = BitmapFactory.decodeStream(inputStream1);
-
 
             } catch (IOException | JSONException ioe) {
                 ioe.printStackTrace();
@@ -241,7 +243,6 @@ public class NasaPhotoActivity extends AppCompatActivity {
                 imageView.setVisibility(View.VISIBLE);
             }
                 new NASAImage();
-
         }
     }
 
@@ -289,7 +290,6 @@ public class NasaPhotoActivity extends AppCompatActivity {
     private static int randomBetween(int start, int end) {
         return start + (int) Math.round(Math.random() * (end - start));
     }
-
 
     //toolbar icons menu inflater
     @Override

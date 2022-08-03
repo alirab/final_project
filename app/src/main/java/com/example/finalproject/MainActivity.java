@@ -7,9 +7,11 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
@@ -23,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     NavigationView navigationView;
     Toolbar toolbar;
     Button button;
+    TextView help;
 
 
     @SuppressLint("NonConstantResourceId")
@@ -43,6 +46,15 @@ public class MainActivity extends AppCompatActivity {
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_string, R.string.close_string);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
+
+        //help
+        help = findViewById(R.id.textViewHelp);
+
+        help.setOnClickListener(view -> {
+            AlertDialog.Builder alert = new AlertDialog.Builder(help.getContext());
+            alert.setTitle("Help").setMessage("Insert instructions here...");
+            alert.show();
+        });
 
         //button to roll for new photo
         button.setOnClickListener(view -> {

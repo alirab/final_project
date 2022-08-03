@@ -219,10 +219,10 @@ public class NasaPhotoActivity extends AppCompatActivity {
                 });
 
                 String imageDate = jsonObject.getString("date");
-                date.setText("Date: " + imageDate);
+                date.setText(imageDate);
 
                 String imageTitle = jsonObject.getString("title");
-                title.setText("Title: " + imageTitle);
+                title.setText(imageTitle);
 
                 HttpURLConnection httpURLConnection1 = (HttpURLConnection) nasaURL.openConnection();
                 httpURLConnection1.setDoInput(true);

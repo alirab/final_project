@@ -2,6 +2,7 @@ package com.example.finalproject;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
@@ -14,12 +15,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.media.MediaScannerConnection;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -37,6 +43,8 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.android.material.navigation.NavigationView;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class GalleryActivity extends AppCompatActivity {
@@ -61,11 +69,42 @@ public class GalleryActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 if(null != images && !images.isEmpty()){
-                    Toast.makeText(getApplicationContext(),"position "+position+""+images.get(position), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),images.get(position), Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
+        gallery.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long l) {
+
+               AlertDialog.Builder alert =
+                       new AlertDialog.Builder(gallery.getContext());
+                alert.setTitle("Are you sure you want to delete this image?")
+                        .setMessage("Delete this image?")
+                        .setPositiveButton("Yes", (dialog, which) -> {
+
+                           //delete
+
+                        }).setNegativeButton("No", (dialog, which) -> {
+                            dialog.cancel();
+                        });
+                 alert.show();
+                return false;
+            }
+
+        });
+
+
+
+
+        //help button
+
+        //filter function
+
+        //hold -> delete @position and from Android Photo Gallery
+
+        //SharedPrefs
 
         drawerLayout = findViewById(R.id.drawerLayout);
         navigationView = findViewById(R.id.navigationMenu);
@@ -156,8 +195,7 @@ public class GalleryActivity extends AppCompatActivity {
                 null, null);
 
         column_index_data = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
-        column_index_folder_name = cursor
-                .getColumnIndexOrThrow(MediaStore.Images.Media.BUCKET_DISPLAY_NAME);
+        column_index_folder_name = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.BUCKET_DISPLAY_NAME);
         while (cursor.moveToNext()) {
             absolutePathOfImage = cursor.getString(column_index_data);
 
@@ -196,4 +234,6 @@ public class GalleryActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+    //Delete image and scanning
+
 }

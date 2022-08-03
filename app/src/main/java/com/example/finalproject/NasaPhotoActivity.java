@@ -29,6 +29,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.appcompat.widget.Toolbar;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
@@ -325,6 +327,9 @@ public class NasaPhotoActivity extends AppCompatActivity {
             case R.id.item2:
                 Intent i = new Intent(NasaPhotoActivity.this, GalleryActivity.class);
                 startActivity(i);
+                return true;
+            case R.id.item4:
+                Toast.makeText(this, "You are already in the randomizer.", Toast.LENGTH_SHORT).show();
                 return true;
 
             case R.id.item3:

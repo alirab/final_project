@@ -5,17 +5,21 @@
         android:title="item1"
         android:id="@+id/item1"
         android:icon="@drawable/icons8home32"
-        app:showAsAction="ifRoom" />
-
+        app:showAsAction="always" />
+    <item
+        android:title="item4"
+        android:id="@+id/item4"
+        android:icon="@drawable/icons8random32"
+        app:showAsAction="always"
+        />
     <item
         android:title="item2"
         android:id="@+id/item2"
         android:icon="@drawable/icons8gallery32"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
     <item
         android:title="item3"
         android:id="@+id/item3"
         android:icon="@drawable/icons8help32"
-        app:showAsAction="ifRoom" />
-
+        app:showAsAction="always" />
 </menu>

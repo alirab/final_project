@@ -69,6 +69,10 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.home:
                     Toast.makeText(this, "You are already home.", Toast.LENGTH_SHORT).show();
                     break;
+                case R.id.randomizer:
+                    Intent r = new Intent(MainActivity.this, NasaPhotoActivity.class);
+                    startActivity(r);
+                    break;
                 case R.id.photos:
                     Intent i = new Intent(MainActivity.this, GalleryActivity.class);
                     startActivity(i);
@@ -99,11 +103,14 @@ public class MainActivity extends AppCompatActivity {
             case R.id.item1:
                 Toast.makeText(this, "You are already home.", Toast.LENGTH_SHORT).show();
                 return true;
+            case R.id.item4:
+                Intent r = new Intent(MainActivity.this, NasaPhotoActivity.class);
+                startActivity(r);
+                return true;
             case R.id.item2:
                 Intent i = new Intent(MainActivity.this, GalleryActivity.class);
                 startActivity(i);
                 return true;
-
             case R.id.item3:
                 Intent a = new Intent(MainActivity.this, HelpActivity.class);
                 startActivity(a);

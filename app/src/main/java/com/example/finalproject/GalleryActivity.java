@@ -1,31 +1,12 @@
 package com.example.finalproject;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.ContentResolver;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.media.MediaScannerConnection;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -33,18 +14,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import com.bumptech.glide.Glide;
 import com.google.android.material.navigation.NavigationView;
-
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class GalleryActivity extends AppCompatActivity {
@@ -52,6 +35,8 @@ public class GalleryActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar;
+    GridView gallery;
+    TextView help;
 
     private ArrayList<String> images;
 
@@ -61,9 +46,11 @@ public class GalleryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery);
 
-        GridView gallery = (GridView) findViewById(R.id.galleryGridView);
+
+        gallery = findViewById(R.id.galleryGridView);
 
         gallery.setAdapter(new ImageAdapter(this));
+
 
         gallery.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -84,7 +71,7 @@ public class GalleryActivity extends AppCompatActivity {
                         .setMessage("Delete this image?")
                         .setPositiveButton("Yes", (dialog, which) -> {
 
-                           //delete
+                        //remove item
 
                         }).setNegativeButton("No", (dialog, which) -> {
                             dialog.cancel();
@@ -95,14 +82,13 @@ public class GalleryActivity extends AppCompatActivity {
 
         });
 
-
-
-
+        help = findViewById(R.id.textViewHelp);
         //help button
-
-        //filter function
-
-        //hold -> delete @position and from Android Photo Gallery
+        help.setOnClickListener(view -> {
+            AlertDialog.Builder alert = new AlertDialog.Builder(help.getContext());
+            alert.setTitle("Help").setMessage("Insert instructions here...");
+            alert.show();
+        });
 
         //SharedPrefs
 
@@ -127,6 +113,10 @@ public class GalleryActivity extends AppCompatActivity {
                     Intent m = new Intent(GalleryActivity.this, MainActivity.class);
                     startActivity(m);
                     break;
+                case R.id.randomizer:
+                    Intent r = new Intent(GalleryActivity.this, NasaPhotoActivity.class);
+                    startActivity(r);
+                    break;
                 case R.id.photos:
                     Toast.makeText(this, "You are already in the gallery.", Toast.LENGTH_SHORT).show();
                     break;
@@ -140,7 +130,7 @@ public class GalleryActivity extends AppCompatActivity {
         });
 
     }
-///////
+
     private class ImageAdapter extends BaseAdapter{
 
         private Activity context;
@@ -202,8 +192,9 @@ public class GalleryActivity extends AppCompatActivity {
             listOfAllImages.add(absolutePathOfImage);
         }
         return listOfAllImages;
+
     }
-    //////
+
 
 
     //toolbar icons menu inflater
@@ -225,6 +216,10 @@ public class GalleryActivity extends AppCompatActivity {
             case R.id.item2:
                 Toast.makeText(this, "You are already in the gallery.", Toast.LENGTH_SHORT).show();
                 return true;
+            case R.id.item4:
+                Intent r = new Intent(GalleryActivity.this, NasaPhotoActivity.class);
+                startActivity(r);
+                return true;
 
             case R.id.item3:
                 Intent a = new Intent(GalleryActivity.this, HelpActivity.class);
@@ -234,6 +229,4 @@ public class GalleryActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-    //Delete image and scanning
-
 }

@@ -2,4 +2,30 @@
     <string name="app_name">FinalProject</string>
     <string name="open_string">open</string>
     <string name="close_string">closed</string>
+    <string name="help">Help</string>
+    <string name="main_help">Enter your firstname and lastname, then click the button to proceed.\n\nYou may also use the toolbar icons or navigation menu.</string>
+    <string name="enter_name">Please enter your name to continue.</string>
+    <string name="already_home">You are already home.</string>
+    <string name="successful">Image downloaded successfully.</string>
+    <string name="okay">OKAY</string>
+    <string name="nasaphoto_help">Use the button labeled "RE-ROLL" to get a new randomized NASA image.\n\nThe button labeled "SAVE" will save the displayed image to the devices image directory.</string>
+    <string name="ask_reroll">Are you sure you want to re-roll this image?</string>
+    <string name="new_image">New random NASA image?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="browser">Select Browser</string>
+    <string name="already_randomizer">You are already in the randomizer.</string>
+    <string name="gallery_help">The gallery displays all images saved in the NASA photo randomizer.\n\n
+    Tap on the images to view their save path.\n\nIn the future delete functionality will be added.</string>
+    <string name="already_gallery">You are already in the gallery.</string>
+    <string name="lastname">Lastname</string>
+    <string name="firstname">Firstname</string>
+    <string name="who_is_using_the_app_today">Who is using the app today?</string>
+    <string name="press_for_image">Press For A\nRandom NASA Photo</string>
+    <string name="re_roll">Re-roll</string>
+    <string name="save">Save</string>
+    <string name="randomizer">Randomizer</string>
+    <string name="photos">Photos</string>
+    <string name="home">Home</string>
+    <string name="help_page_text">1.\n2.\n3.\n4.\n5.</string>
 </resources>

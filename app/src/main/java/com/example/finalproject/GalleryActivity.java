@@ -61,34 +61,17 @@ public class GalleryActivity extends AppCompatActivity {
             }
         });
 
-        gallery.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long l) {
-
-               AlertDialog.Builder alert =
-                       new AlertDialog.Builder(gallery.getContext());
-                alert.setTitle("Are you sure you want to delete this image?")
-                        .setMessage("Delete this image?")
-                        .setPositiveButton("Yes", (dialog, which) -> {
-
-                        //remove item
-
-                        }).setNegativeButton("No", (dialog, which) -> {
-                            dialog.cancel();
-                        });
-                 alert.show();
-                return false;
-            }
-
-        });
 
         help = findViewById(R.id.textViewHelp);
         //help button
         help.setOnClickListener(view -> {
-            AlertDialog.Builder alert = new AlertDialog.Builder(help.getContext());
-            alert.setTitle("Help").setMessage("Insert instructions here...");
+                    AlertDialog.Builder alert = new AlertDialog.Builder(help.getContext());
+                    alert.setTitle(R.string.help).setMessage(R.string.gallery_help)
+                            .setPositiveButton(getString(R.string.okay), (dialog, which) -> {
+
+                            });
             alert.show();
-        });
+                });
 
         //SharedPrefs
 
@@ -118,7 +101,7 @@ public class GalleryActivity extends AppCompatActivity {
                     startActivity(r);
                     break;
                 case R.id.photos:
-                    Toast.makeText(this, "You are already in the gallery.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, getString(R.string.already_gallery), Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.help:
                     Intent a = new Intent(GalleryActivity.this, HelpActivity.class);
@@ -214,7 +197,7 @@ public class GalleryActivity extends AppCompatActivity {
                 startActivity(m);
                 return true;
             case R.id.item2:
-                Toast.makeText(this, "You are already in the gallery.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.already_gallery), Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.item4:
                 Intent r = new Intent(GalleryActivity.this, NasaPhotoActivity.class);

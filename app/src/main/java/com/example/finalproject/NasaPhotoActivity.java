@@ -1,12 +1,5 @@
 package com.example.finalproject;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
@@ -20,7 +13,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.Browser;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -30,12 +22,21 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -110,9 +111,9 @@ public class NasaPhotoActivity extends AppCompatActivity {
 
 
 
-            Snackbar snackbar = Snackbar.make(view,"Image downloaded successfully.",Snackbar.LENGTH_LONG);
+            Snackbar snackbar = Snackbar.make(view,getString(R.string.successful),Snackbar.LENGTH_LONG);
             snackbar.setDuration(20000);
-            snackbar.setAction("OKAY", new View.OnClickListener(){
+            snackbar.setAction(getString(R.string.okay), new View.OnClickListener(){
 
                 @Override
                 public void onClick(View view) {
@@ -125,7 +126,10 @@ public class NasaPhotoActivity extends AppCompatActivity {
         //help menu option
         help.setOnClickListener(view -> {
             AlertDialog.Builder alert = new AlertDialog.Builder(help.getContext());
-            alert.setTitle("Help").setMessage("Insert instructions here...");
+            alert.setTitle(R.string.help).setMessage(R.string.nasaphoto_help)
+                    .setPositiveButton(getString(R.string.okay), (dialog, which) -> {
+
+            });
             alert.show();
         });
 
@@ -133,14 +137,14 @@ public class NasaPhotoActivity extends AppCompatActivity {
         reroll.setOnClickListener(view -> {
 
             AlertDialog.Builder alert = new AlertDialog.Builder(reroll.getContext());
-            alert.setTitle("Are you sure you want to re-roll this image?")
-                    .setMessage("New random NASA image?")
-                    .setPositiveButton("Yes", (dialog, which) -> {
+            alert.setTitle(R.string.ask_reroll)
+                    .setMessage(R.string.new_image)
+                    .setPositiveButton(getString(R.string.yes), (dialog, which) -> {
 
                         NASAImage newNasaImage = new NASAImage();
                         newNasaImage.execute();
 
-                    }).setNegativeButton("No", (dialog, which) -> {
+                    }).setNegativeButton(getString(R.string.no), (dialog, which) -> {
                         dialog.cancel();
                     });
             alert.show();
@@ -187,6 +191,7 @@ public class NasaPhotoActivity extends AppCompatActivity {
         protected Bitmap doInBackground(String... objects) {
 
             try {
+
                 String url = "https://api.nasa.gov/planetary/apod?api_key=cwZOfj9H4q0nNRzepGBmHAhICE2L7XRPOeNxHlrK&date=" + generateRandomDate();
                 HttpURLConnection httpURLConnection = (HttpURLConnection) new URL(url).openConnection();
                 httpURLConnection.setDoInput(true);
@@ -216,7 +221,7 @@ public class NasaPhotoActivity extends AppCompatActivity {
                     }catch(ActivityNotFoundException ex){
 
                         intent.setPackage(null);
-                        startActivity(Intent.createChooser(intent, "Select Browser"));
+                        startActivity(Intent.createChooser(intent, getString(R.string.browser)));
                     }
                 });
 
@@ -232,6 +237,7 @@ public class NasaPhotoActivity extends AppCompatActivity {
 
                 InputStream inputStream1 = httpURLConnection1.getInputStream();
                 bitmap = BitmapFactory.decodeStream(inputStream1);
+
 
             } catch (IOException | JSONException ioe) {
                 ioe.printStackTrace();
@@ -301,6 +307,9 @@ public class NasaPhotoActivity extends AppCompatActivity {
         int day = randomBetween(1, calendar.get(Calendar.DAY_OF_YEAR));
         calendar.set(Calendar.DAY_OF_YEAR, day);
         return calendar.get(Calendar.YEAR) + "-" + (calendar.get(Calendar.MONTH) + 1) + "-" + calendar.get(Calendar.DAY_OF_MONTH);
+
+
+
     }
 
     private static int randomBetween(int start, int end) {
@@ -329,7 +338,7 @@ public class NasaPhotoActivity extends AppCompatActivity {
                 startActivity(i);
                 return true;
             case R.id.item4:
-                Toast.makeText(this, "You are already in the randomizer.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.already_randomizer), Toast.LENGTH_SHORT).show();
                 return true;
 
             case R.id.item3:

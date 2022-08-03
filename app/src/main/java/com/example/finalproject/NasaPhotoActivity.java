@@ -57,6 +57,7 @@ public class NasaPhotoActivity extends AppCompatActivity {
     TextView date;
     TextView descURL;
     ProgressBar progressBar;
+    TextView help;
 
     @SuppressLint({"NonConstantResourceId", "SetTextI18n"})
     @Override
@@ -88,6 +89,8 @@ public class NasaPhotoActivity extends AppCompatActivity {
 
         imageView = findViewById(R.id.imageView);
 
+        help = findViewById(R.id.textViewHelp);
+
         //declaring async class
         NASAImage nasaImage = new NASAImage();
         nasaImage.execute();
@@ -102,16 +105,26 @@ public class NasaPhotoActivity extends AppCompatActivity {
         //Save  image function ->
         save.setOnClickListener(view -> {
             saveToGallery();
+
+
+
             Snackbar snackbar = Snackbar.make(view,"Image downloaded successfully.",Snackbar.LENGTH_LONG);
             snackbar.setDuration(20000);
             snackbar.setAction("OKAY", new View.OnClickListener(){
 
                 @Override
                 public void onClick(View view) {
-
+                //can do something
                 }
             });
             snackbar.show();
+        });
+
+        //help menu option
+        help.setOnClickListener(view -> {
+            AlertDialog.Builder alert = new AlertDialog.Builder(help.getContext());
+            alert.setTitle("Help").setMessage("Insert instructions here...");
+            alert.show();
         });
 
         //Re-roll function is working -> new thread created on the async task to handle multiple thread executions
@@ -246,7 +259,7 @@ public class NasaPhotoActivity extends AppCompatActivity {
         }
     }
 
-    //Save to gallery function using bitmap and file output stream
+    //Save to gallery function using bitmap drawable and file output stream
     private void saveToGallery(){
         BitmapDrawable bitmapDrawable = (BitmapDrawable) imageView.getDrawable();
         Bitmap bitmap = bitmapDrawable.getBitmap();
@@ -259,6 +272,7 @@ public class NasaPhotoActivity extends AppCompatActivity {
         @SuppressLint("DefaultLocale")
         String filename = String.format("%d.png",System.currentTimeMillis());
         File outFile = new File(dir,filename);
+
         try{
             outputStream = new FileOutputStream(outFile);
         }catch (Exception e){

@@ -1,0 +1,41 @@
+<resources>
+    <string name="app_name">NASA</string>
+    <string name="open_string">open</string>
+    <string name="close_string">closed</string>
+    <string name="help">Aider</string>
+    <string name="main_help">Saisissez votre prénom et votre nom, puis cliquez sur le bouton pour continuer.\n\nVous pouvez également utiliser les icônes de la barre d\'outils ou le menu de navigation.</string>
+    <string name="enter_name">Veuillez entrer votre nom pour continuer.</string>
+    <string name="already_home">Vous êtes déjà chez vous.</string>
+    <string name="successful">Image téléchargée avec succès.</string>
+    <string name="okay">D\'ACCORD</string>
+    <string name="nasaphoto_help">Utilisez le bouton "RE-ROLL" pour obtenir une nouvelle image randomisée de la NASA.\n\nLe bouton "SAVE" enregistrera l\'image affichée dans le répertoire d\'images de l\'appareil.</string>
+    <string name="ask_reroll">Voulez-vous vraiment relancer cette image ?</string>
+    <string name="new_image">Nouvelle image aléatoire de la NASA ?</string>
+    <string name="yes">Oui</string>
+    <string name="no">Non</string>
+    <string name="browser">Sélectionnez le navigateur</string>
+    <string name="already_randomizer">Vous êtes déjà dans le randomiseur.</string>
+    <string name="gallery_help">La galerie affiche toutes les images enregistrées dans le randomiseur de photos de la NASA.\n\n
+    Appuyez sur les images pour afficher leur chemin d\'enregistrement.\n\nÀ l\'avenir, la fonctionnalité de suppression sera ajoutée.
+</string>
+    <string name="already_gallery">Vous êtes déjà dans la galerie.</string>
+    <string name="lastname">Nom de famille</string>
+    <string name="firstname">Prénom</string>
+    <string name="who_is_using_the_app_today">Qui utilise l\'application aujourd\'hui?</string>
+    <string name="press_for_image">Appuyez pour une\nphoto aléatoire de la NASA</string>
+    <string name="re_roll">Relancer</string>
+    <string name="save">Sauvegarder</string>
+    <string name="randomizer">Aléatoire</string>
+    <string name="photos">Photos</string>
+    <string name="home">Maison</string>
+    <string name="help_page_text">\n\n1.Pour utiliser l\'application, démarrez à partir de la page d\'accueil et entrez votre nom.
+        \n\n2.Ensuite, cliquez sur le bouton au milieu de l\'écran.
+        \n\n3.Une nouvelle page s\'ouvrira où une image aléatoire sera générée à l\'aide de l\'API de la NASA.
+        \n\n4.Le bouton RE-ROLL générera une nouvelle date, avec une image correspondante.
+        \n\n5.Le bouton ENREGISTRER enregistrera l\'image affichée à l\'écran dans un dossier de votre appareil.
+        \n\n6.Cliquez sur l\'URL sous l\'image pour ouvrir l\'image dans un navigateur Web.
+    \n\n7.Pour afficher la ou les photos nouvellement enregistrées, cliquez sur l\'icône de la galerie dans la barre d\'outils ou ouvrez le tiroir de navigation et sélectionnez Galerie.
+    \n\n8Profitez de vos nouvelles images de la NASA.\n\nPour plus d\'informations, veuillez contacter :\nrabh0003@algonquinlive.com</string>
+    <string name="already_help">Vous êtes déjà sur la page d\'aide.</string>
+    <string name="help_help">La page d\'aide est destinée à vous guider dans l\'application.\n\nSuivez les étapes décrites sur cette page.</string>
+</resources>

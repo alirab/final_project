@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">FinalProject</string>
+    <string name="app_name">NASA</string>
     <string name="open_string">open</string>
     <string name="close_string">closed</string>
     <string name="help">Help</string>
@@ -27,5 +27,14 @@
     <string name="randomizer">Randomizer</string>
     <string name="photos">Photos</string>
     <string name="home">Home</string>
-    <string name="help_page_text">1.\n2.\n3.\n4.\n5.</string>
+    <string name="help_page_text">\n\n1.To use the application, start from the homepage and enter your name.
+        \n\n2.Then click the button in the middle of the screen.
+        \n\n3.A new page will open where a random image will be generated using NASA API.
+        \n\n4.The RE-ROLL button will generate a new date, with a corresponding image.
+        \n\n5.The SAVE button will save the image displayed on the screen to a folder on your device.
+        \n\n6.Click the URL beneath the image to open the image in a web browser.
+    \n\n7.To view the newly saved photo(s), click on the gallery icon in the toolbar, or open the navigation drawer and select Gallery.
+    \n\n8Enjoy your new NASA images.\n\nFor more information please contact:\nrabh0003@algonquinlive.com</string>
+    <string name="already_help">You are already on the help page.</string>
+    <string name="help_help">The help page is meant to guide you through the application.\n\nFollow the steps outline on this page.</string>
 </resources>
